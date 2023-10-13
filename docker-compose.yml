@@ -1,0 +1,66 @@
+version: '3.7'
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  web:
+    image: nginx:stable-alpine
+    container_name: ip-management-webserver
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+      - db
+    networks:
+      - app
+
+  backend:
+    container_name: ip-management-backend
+    ports:
+      - "9000:9000"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - app
+
+  db:
+    image: mariadb
+    container_name: ip-management-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    networks:
+      - app
+
+  frontend:
+    container_name: ip-management-frontend
+    ports:
+      - "3000:3000"
+    tty: true
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    networks:
+      - app
+
+
