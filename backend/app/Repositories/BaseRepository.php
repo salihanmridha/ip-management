@@ -20,7 +20,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $attributes
+     * @param  array<mixed>  $attributes
      *
      * @return mixed
      */
@@ -30,7 +30,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $attributes
+     * @param  array<mixed>  $attributes
      * @param  int  $id
      *
      * @return bool
@@ -80,7 +80,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $data
+     * @param  array<mixed>  $data
      *
      * @return mixed
      */
@@ -90,7 +90,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $data
+     * @param  array<mixed>  $data
      * @param $with
      *
      * @return mixed
@@ -101,7 +101,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $data
+     * @param  array<mixed>  $data
      *
      * @return mixed
      */
@@ -111,7 +111,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $data
+     * @param  array<mixed>  $data
      *
      * @return mixed
      */
@@ -131,7 +131,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $data
+     * @param  array<mixed>  $data
      *
      * @return bool
      */

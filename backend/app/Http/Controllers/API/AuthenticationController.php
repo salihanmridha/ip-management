@@ -5,13 +5,14 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\DTO\LoginRequestDTO;
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
 use App\Services\Contracts\AuthenticationServiceInterface;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthenticationController extends Controller
 {
+    use ApiResponseTrait;
     private AuthenticationServiceInterface $authService;
 
     public function __construct(AuthenticationServiceInterface $authService)
@@ -69,10 +70,10 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * @return void
+     * @return JsonResponse
      */
-    public function logout(): void
+    public function logout(): JsonResponse
     {
-        request()->user()->currentAccessToken()->delete();
+        return $this->authService->logout();
     }
 }

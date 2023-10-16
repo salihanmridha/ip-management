@@ -26,7 +26,7 @@ class AuthenticationService implements AuthenticationServiceInterface
     {
         try {
             $login = Auth::attempt(['email' => $email, 'password' => $password]);
-            if ($login) {
+            if ($login && Auth::user()) {
                 $user  = Auth::user();
                 $token = $user->createToken('authentication_token')->plainTextToken;
                 $data  = [
@@ -43,7 +43,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
             return $this->errorResponse("An error occurred during authentication.",
                 Response::HTTP_INTERNAL_SERVER_ERROR);
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             Log::error("Query error : ".$e->getMessage());
 
             return $this->errorResponse("A query error occurred during authentication.",
@@ -52,6 +52,26 @@ class AuthenticationService implements AuthenticationServiceInterface
             Log::error("An exception occurred : ".$e->getMessage());
 
             return $this->errorResponse("Something went wrong. Please try again later.",
+                Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function logout(): JsonResponse
+    {
+        try {
+            $user = request()->user();
+            if ($user && $user->currentAccessToken() !== null) {
+                $user->currentAccessToken()->delete();
+
+                return $this->successResponse('Logout successfully!', null, Response::HTTP_OK);
+            }
+
+            return $this->errorResponse("User is not authenticated to perform this action",
+                Response::HTTP_FORBIDDEN);
+        } catch (\Exception $e) {
+            Log::error("Logout error: ".$e->getMessage());
+
+            return $this->errorResponse("Something went wrong during logout. Please try again",
                 Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

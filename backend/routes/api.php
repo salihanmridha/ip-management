@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::post("/login", [\App\Http\Controllers\API\AuthenticationController::class, "login"])
      ->name("api.login");
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('/logout',
+        [\App\Http\Controllers\API\AuthenticationController::class, 'logout']
+    )->name('api.logout');
+
 });

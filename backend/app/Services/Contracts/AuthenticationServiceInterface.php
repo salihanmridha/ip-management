@@ -14,4 +14,9 @@ interface AuthenticationServiceInterface
      * @return JsonResponse
      */
     public function login(string $email, string $password): JsonResponse;
+
+    /**
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse;
 }

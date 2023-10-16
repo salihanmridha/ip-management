@@ -10,7 +10,7 @@ trait ApiResponseTrait
      * Send a success response with optional data and status code.
      *
      * @param  string  $message
-     * @param  array|null  $data
+     * @param  array<mixed>|null  $data
      * @param  int  $statusCode
      *
      * @return JsonResponse

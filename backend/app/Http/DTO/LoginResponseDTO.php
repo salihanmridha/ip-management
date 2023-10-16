@@ -70,7 +70,7 @@ class LoginResponseDTO extends Data
          *     }
          * )
          *
-         * @var array
+         * @var array<mixed>
          */
         public readonly array $data,
     )

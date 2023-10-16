@@ -56,6 +56,8 @@ class UnprocessableContentResponseDTO extends Data
          *          ),
          *     ),
          * )
+         *
+         * @var array<mixed>
          */
         public readonly array $errors,
     )

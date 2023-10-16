@@ -5,13 +5,13 @@ namespace App\Repositories\Contracts;
 interface BaseRepositoryInterface
 {
     /**
-     * @param array $attributes
+     * @param array<mixed> $attributes
      * @return mixed
      */
     public function create(array $attributes): mixed;
 
     /**
-     * @param array $attributes
+     * @param array<mixed> $attributes
      * @param int $id
      * @return bool
      */
@@ -35,19 +35,19 @@ interface BaseRepositoryInterface
     public function find(int $id): mixed;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @return mixed
      */
     public function findBy(array $data): mixed;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @return mixed
      */
     public function findOneBy(array $data): mixed;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @param $with
      * @return mixed
      */
@@ -60,7 +60,7 @@ interface BaseRepositoryInterface
     public function delete(int $id): bool;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @return bool
      */
     public function deleteBy(array $data): bool;
@@ -73,7 +73,7 @@ interface BaseRepositoryInterface
     public function findWith(int $id, $with): mixed;
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @param $with
      * @return mixed
      */
