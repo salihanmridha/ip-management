@@ -30,71 +30,71 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->renderable(function (NotFoundHttpException $exception, Request $request){
+        $this->renderable(function (NotFoundHttpException $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_NOT_FOUND,
+                    'status'  => Response::HTTP_NOT_FOUND,
                     'success' => false,
                     'message' => $exception->getMessage(),
                 ], Response::HTTP_NOT_FOUND);
             }
         });
 
-        $this->renderable(function (\Error $exception, Request $request){
+        $this->renderable(function (\Error $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
                     'success' => false,
                     'message' => "Sorry! We are unable to process your request at this moment. Try again later",
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         });
 
-        $this->renderable(function (\ErrorException $exception, Request $request){
+        $this->renderable(function (\ErrorException $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
                     'success' => false,
                     'message' => "Sorry! We are unable to process your request at this moment. Try again later",
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         });
 
-        $this->renderable(function (FatalError $exception, Request $request){
+        $this->renderable(function (FatalError $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
                     'success' => false,
                     'message' => "Sorry! We are unable to process your request at this moment. Try again later",
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         });
 
-        $this->renderable(function (QueryException $exception, Request $request){
+        $this->renderable(function (QueryException $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
                     'success' => false,
                     'message' => "A database query error occurred. Please check your data or try again later.",
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         });
 
-        $this->renderable(function (ValidationException $exception, Request $request){
+        $this->renderable(function (ValidationException $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
+                    'status'  => Response::HTTP_UNPROCESSABLE_ENTITY,
                     'success' => false,
                     'message' => $exception->getMessage(),
-                    'errors' => $exception->errors()
+                    'errors'  => $exception->errors()
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         });
 
-        $this->renderable(function (ModelNotFoundException $exception, Request $request){
+        $this->renderable(function (ModelNotFoundException $exception, Request $request) {
             if ($request->wantsJson()) {
                 return response()->json([
-                    'status' => Response::HTTP_NOT_FOUND,
+                    'status'  => Response::HTTP_NOT_FOUND,
                     'success' => false,
                     'message' => "Resource not found!",
                 ], Response::HTTP_NOT_FOUND);
