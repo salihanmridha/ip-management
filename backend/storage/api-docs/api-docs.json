@@ -1,0 +1,208 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "IP Management OpenApi Documentation",
+        "description": "IP Management application swagger/openapi documentation",
+        "contact": {
+            "email": "salihanmridha@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api/",
+            "description": "IP Management Server For Common"
+        },
+        {
+            "url": "http://127.0.0.1/api/",
+            "description": "IP Management Server For Common IP"
+        },
+        {
+            "url": "http://localhost:8000/api/",
+            "description": "IP Management Server"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login an user",
+                "description": "Login an user and Returns json response",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequestDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Email and Password doesn't match"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequestDTO": {
+                "title": "Login Request DTO",
+                "description": "Login Request DTO",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "salihanmridha@gmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Password of the user",
+                        "type": "string",
+                        "example": "12345678"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginResponseDTO": {
+                "title": "Login Response DTO",
+                "description": "Login response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "Login successfully!"
+                    },
+                    "data": {
+                        "title": "data",
+                        "properties": {
+                            "access_token": {
+                                "type": "string",
+                                "example": "your-access-token"
+                            },
+                            "user": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Salihan Mridha"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "salihanmridha@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UnprocessableContentResponseDTO": {
+                "title": "Unprocessable Content Response DTO",
+                "description": "Unprocessable Content (422 code) Response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 422
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "Some requested data doesn't match the condition"
+                    },
+                    "errors": {
+                        "title": "errors",
+                        "properties": {
+                            "key": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "Validation error shows for the key"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

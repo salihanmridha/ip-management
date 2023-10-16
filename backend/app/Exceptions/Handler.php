@@ -100,5 +100,15 @@ class Handler extends ExceptionHandler
                 ], Response::HTTP_NOT_FOUND);
             }
         });
+
+        $this->renderable(function (\BadMethodCallException $exception, Request $request) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'status'  => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'success' => false,
+                    'message' => "Method not found!",
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        });
     }
 }

@@ -40,26 +40,39 @@ class AuthenticationController extends Controller
      *          description="Unauthorized",
      *          @OA\JsonContent(
      *              @OA\Property(
-    property="status",
+                        property="status",
      *                  type="int",
      *                  example=401,
      *              ),
      *              @OA\Property(
-    property="success",
+                        property="success",
      *                  type="bool",
      *                  example=false,
      *              ),
      *              @OA\Property(
-    property="error",
+                        property="error",
      *                  type="string",
      *                  example="Email and Password doesn't match",
      *              ),
      *          )
      *       ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Content",
+     *          @OA\JsonContent(ref="#/components/schemas/UnprocessableContentResponseDTO")
+     *      ),
      * )
      */
     public function login(LoginRequest $request, LoginRequestDTO $requestDTO): JsonResponse
     {
         return $this->authService->login($requestDTO->email, $requestDTO->password);
+    }
+
+    /**
+     * @return void
+     */
+    public function logout(): void
+    {
+        request()->user()->currentAccessToken()->delete();
     }
 }
