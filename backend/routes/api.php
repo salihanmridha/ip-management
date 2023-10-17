@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/login", function(){
+    throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException("404 not found");
+})->name("login");
 
 Route::post("/login", [\App\Http\Controllers\API\AuthenticationController::class, "login"])
      ->name("api.login");
@@ -23,5 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout',
         [\App\Http\Controllers\API\AuthenticationController::class, 'logout']
     )->name('api.logout');
+
+    Route::apiResource('ip-address', \App\Http\Controllers\API\IpAddressController::class)->except([
+        "destroy"
+    ]);
 
 });

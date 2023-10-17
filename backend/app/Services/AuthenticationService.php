@@ -56,6 +56,9 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function logout(): JsonResponse
     {
         try {

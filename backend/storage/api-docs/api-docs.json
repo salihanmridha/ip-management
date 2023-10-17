@@ -88,10 +88,406 @@
                     }
                 }
             }
+        },
+        "/ip-address": {
+            "get": {
+                "tags": [
+                    "IpAddress"
+                ],
+                "summary": "Get list of ip addresses",
+                "description": "Returns list of ip addresses",
+                "operationId": "getIpAddressList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IpAddressResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "IpAddress"
+                ],
+                "summary": "Store new ip address",
+                "description": "Store ip address data",
+                "operationId": "store_ip_address",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreIpAddressRequestDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreIpAddressResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/ip-address/{id}": {
+            "get": {
+                "tags": [
+                    "IpAddress"
+                ],
+                "summary": "Get ip information",
+                "description": "Returns ip data",
+                "operationId": "getIpById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ip address id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IpAddressShowResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpNotFoundResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "IpAddress"
+                ],
+                "summary": "Update existing ip",
+                "description": "Returns updated ip data",
+                "operationId": "updateIp",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "IP id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateIpAddressRequestDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IpAddressShowResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HttpNotFoundResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableContentResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "HttpForbiddenResponseDTO": {
+                "title": "Http forbidden Response DTO",
+                "description": "Http forbidden (403 code) Response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 403
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "error": {
+                        "title": "error",
+                        "type": "string",
+                        "example": "You dont have permission to take this action"
+                    }
+                },
+                "type": "object"
+            },
+            "HttpNotFoundResponseDTO": {
+                "title": "Http not found Response DTO",
+                "description": "Http not found (404 code) Response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 404
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "error": {
+                        "title": "error",
+                        "type": "string",
+                        "example": "Something not found"
+                    }
+                },
+                "type": "object"
+            },
+            "IpAddressResponseDTO": {
+                "title": "IpAddress Response DTO",
+                "description": "IpAddress response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "Data successfully retrieve"
+                    },
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "ip_address": {
+                                    "type": "string",
+                                    "example": "202.92.249.111,"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "example": "gifts.ad-group.com.au"
+                                },
+                                "user_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "user": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Salihan Mridha"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "salihanmridha@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "IpAddressShowResponseDTO": {
+                "title": "Todo show Response DTO",
+                "description": "Todo show response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "0.0.0.0 ip found"
+                    },
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "ip_address": {
+                                    "type": "string",
+                                    "example": "202.92.249.111,"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "example": "gifts.ad-group.com.au"
+                                },
+                                "user_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "user": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Salihan Mridha"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "salihanmridha@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "LoginRequestDTO": {
                 "title": "Login Request DTO",
                 "description": "Login Request DTO",
@@ -160,6 +556,93 @@
                 },
                 "type": "object"
             },
+            "StoreIpAddressRequestDTO": {
+                "title": "Store Ip address Request DTO",
+                "description": "Store Ip address Request DTO",
+                "required": [
+                    "ip_address",
+                    "comment"
+                ],
+                "properties": {
+                    "ip_address": {
+                        "title": "ip_address",
+                        "description": "Valid IP address",
+                        "type": "string",
+                        "example": "121.28.229.28"
+                    },
+                    "comment": {
+                        "title": "comment",
+                        "description": "Comment of IP address",
+                        "type": "string",
+                        "example": "Comment for ip 121.28.229.28"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreIpAddressResponseDTO": {
+                "title": "Store IpAddress Response DTO",
+                "description": "Store IpAddress response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 201
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "127.0.0.1 ip successfully created."
+                    },
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "ip_address": {
+                                    "type": "string",
+                                    "example": "202.92.249.111,"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "example": "gifts.ad-group.com.au"
+                                },
+                                "user_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "user": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Salihan Mridha"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "salihanmridha@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "UnprocessableContentResponseDTO": {
                 "title": "Unprocessable Content Response DTO",
                 "description": "Unprocessable Content (422 code) Response DTO",
@@ -177,7 +660,7 @@
                     "message": {
                         "title": "message",
                         "type": "string",
-                        "example": "Some requested data doesn't match the condition"
+                        "example": "Requested data validation failed."
                     },
                     "errors": {
                         "title": "errors",
@@ -191,6 +674,22 @@
                             }
                         },
                         "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateIpAddressRequestDTO": {
+                "title": "Update Ip address Request DTO",
+                "description": "Update Ip address Request DTO",
+                "required": [
+                    "comment"
+                ],
+                "properties": {
+                    "comment": {
+                        "title": "comment",
+                        "description": "Comment of IP address",
+                        "type": "string",
+                        "example": "Comment for ip 121.28.229.28"
                     }
                 },
                 "type": "object"
