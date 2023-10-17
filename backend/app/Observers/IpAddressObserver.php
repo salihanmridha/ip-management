@@ -8,6 +8,7 @@ use App\Traits\AuditLogTrait;
 class IpAddressObserver
 {
     use AuditLogTrait;
+
     /**
      * Handle the IpAddress "created" event.
      */
@@ -15,7 +16,7 @@ class IpAddressObserver
     {
         $modelAttributes = $this->reformatModelEventChanges($ipAddress);
 
-        $logDesc = optional(auth()->user())->email . " created IP address {$ipAddress->ip_address} with '{$ipAddress->comment}' comment" ;
+        $logDesc = optional(auth()->user())->email." created IP address {$ipAddress->ip_address} with '{$ipAddress->comment}' comment";
 
         $this->storeAuditLog(
             "CREATE",
@@ -35,7 +36,7 @@ class IpAddressObserver
     {
         $modelAttributes = $this->reformatModelEventChanges($ipAddress);
 
-        $logDesc = optional(auth()->user())->email . " updated IP address {$ipAddress->ip_address} with '{$ipAddress->comment}' comment" ;
+        $logDesc = optional(auth()->user())->email." updated IP address {$ipAddress->ip_address} with '{$ipAddress->comment}' comment";
 
         $this->storeAuditLog(
             "UPDATE",

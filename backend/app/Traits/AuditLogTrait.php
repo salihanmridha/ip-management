@@ -68,14 +68,14 @@ trait AuditLogTrait
 
     private function updateEventProperties(Model $model)
     {
-        $changes = $model->getChanges();
+        $changes  = $model->getChanges();
         $original = $model->getOriginal();
 
         $properties = [];
 
         $changedKeys = array_keys($changes);
         foreach ($changedKeys as $key) {
-            $properties['old'][$key] = $original[$key] instanceof Carbon ? $original[$key]->format('Y-m-d H:i:s') : $original[$key];
+            $properties['old'][$key]       = $original[$key] instanceof Carbon ? $original[$key]->format('Y-m-d H:i:s') : $original[$key];
             $properties['attribute'][$key] = $changes[$key] instanceof Carbon ? $changes[$key]->format('Y-m-d H:i:s') : $changes[$key];
         }
 
