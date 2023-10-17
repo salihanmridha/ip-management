@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("model_name", 255)->nullable();
             $table->string("model_path", 255)->nullable();
             $table->enum('event', ["CREATE", "UPDATE", "DELETE", "LOGIN"]);
+            $table->enum('status', ["SUCCESS", "FAILED"]);
             $table->text("log_description")->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'log_creator')->nullable();
             $table->json('properties')->nullable();
