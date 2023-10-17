@@ -49,8 +49,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param $with
+     * Get all records with eager loading.
      *
+     * @param array<mixed>|string $with
      * @return mixed
      */
     public function getAllWith($with): mixed
@@ -69,8 +70,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * Find one record with eager loading
+     *
      * @param  int  $id
-     * @param $with
+     * @param array<mixed>|string $with
      *
      * @return mixed
      */
@@ -90,8 +93,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * Get multiple records by condition with eager loading.
+     *
      * @param  array<mixed>  $data
-     * @param $with
+     * @param array<mixed>|string $with
      *
      * @return mixed
      */
@@ -111,7 +116,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * Find one record by condition with eager loading
+     *
      * @param  array<mixed>  $data
+     * @param array<mixed>|string $with
      *
      * @return mixed
      */
@@ -127,7 +135,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function delete(int $id): bool
     {
-        return $this->model->find($id)->delete();
+        $data = $this->model->find($id);
+        if ($data){
+            return $data->delete();
+        }
+
+        return false;
+
     }
 
     /**

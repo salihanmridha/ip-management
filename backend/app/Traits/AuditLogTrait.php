@@ -35,6 +35,11 @@ trait AuditLogTrait
         ]);
     }
 
+    /**
+     * @param  Model  $model
+     *
+     * @return array<mixed>
+     */
     public function reformatModelEventChanges(Model $model): array
     {
 
@@ -56,6 +61,11 @@ trait AuditLogTrait
 
     }
 
+    /**
+     * @param  Model  $model
+     *
+     * @return false|string
+     */
     private function createEventProperties(Model $model)
     {
         $properties = [];
@@ -66,6 +76,11 @@ trait AuditLogTrait
         return json_encode($properties);
     }
 
+    /**
+     * @param  Model  $model
+     *
+     * @return false|string
+     */
     private function updateEventProperties(Model $model)
     {
         $changes  = $model->getChanges();

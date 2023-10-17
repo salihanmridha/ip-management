@@ -1,0 +1,22 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$model of method App\\\\Listeners\\\\FailedLoginListener\\:\\:reformatModelEventChanges\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			count: 1
+			path: app/Listeners/FailedLoginListener.php
+
+		-
+			message: "#^Parameter \\#1 \\$model of method App\\\\Listeners\\\\SuccessfulLoginListener\\:\\:reformatModelEventChanges\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable given\\.$#"
+			count: 1
+			path: app/Listeners/SuccessfulLoginListener.php
+
+		-
+			message: "#^Method App\\\\Repositories\\\\BaseRepository\\:\\:delete\\(\\) should return bool but returns bool\\|null\\.$#"
+			count: 1
+			path: app/Repositories/BaseRepository.php
+
+		-
+			message: "#^Call to an undefined method Laravel\\\\Sanctum\\\\Contracts\\\\HasAbilities\\:\\:delete\\(\\)\\.$#"
+			count: 1
+			path: app/Services/AuthenticationService.php
+

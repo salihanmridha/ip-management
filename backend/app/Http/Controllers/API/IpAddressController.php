@@ -81,7 +81,7 @@ class IpAddressController extends Controller
      *     ),
      * )
      */
-    public function store(StoreIpAddressRequest $request, StoreIpAddressRequestDTO $requestDTO)
+    public function store(StoreIpAddressRequest $request, StoreIpAddressRequestDTO $requestDTO): JsonResponse
     {
         return $this->ipAddress->createIpAddress($requestDTO->ip_address, $requestDTO->comment);
     }
@@ -127,7 +127,7 @@ class IpAddressController extends Controller
      *     ),
      * )
      */
-    public function show(IpAddress $ipAddress)
+    public function show(IpAddress $ipAddress): JsonResponse
     {
         return $this->ipAddress->showIpAddress($ipAddress);
     }
@@ -174,7 +174,7 @@ class IpAddressController extends Controller
      *      ),
      * )
      */
-    public function update(UpdateIpAddressRequest $request, IpAddress $ipAddress, UpdateIpAddressRequestDTO $requestDTO)
+    public function update(UpdateIpAddressRequest $request, IpAddress $ipAddress, UpdateIpAddressRequestDTO $requestDTO): JsonResponse
     {
         return $this->ipAddress->updateIpAddress($ipAddress->id, $requestDTO->comment);
     }

@@ -18,7 +18,7 @@ class SuccessfulLoginListener
      */
     public function handle(Login $event): void
     {
-        $user = Auth::user();
+        $user = $event->user;
 
         $modelAttributes = $this->reformatModelEventChanges($user);
 

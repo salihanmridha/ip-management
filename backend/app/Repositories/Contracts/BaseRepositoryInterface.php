@@ -23,7 +23,9 @@ interface BaseRepositoryInterface
     public function getAll(): mixed;
 
     /**
-     * @param $with
+     * Get all records with eager loading.
+     *
+     * @param array<mixed>|string $with
      * @return mixed
      */
     public function getAllWith($with): mixed;
@@ -47,8 +49,11 @@ interface BaseRepositoryInterface
     public function findOneBy(array $data): mixed;
 
     /**
-     * @param array<mixed> $data
-     * @param $with
+     * Find one record by condition with eager loading
+     *
+     * @param  array<mixed>  $data
+     * @param array<mixed>|string $with
+     *
      * @return mixed
      */
     public function findOneWithBy(array $data, $with): mixed;
@@ -66,15 +71,21 @@ interface BaseRepositoryInterface
     public function deleteBy(array $data): bool;
 
     /**
-     * @param int $id
-     * @param $with
+     * Find one record with eager loading
+     *
+     * @param  int  $id
+     * @param array<mixed>|string $with
+     *
      * @return mixed
      */
     public function findWith(int $id, $with): mixed;
 
     /**
-     * @param array<mixed> $data
-     * @param $with
+     * Get multiple records by condition with eager loading.
+     *
+     * @param  array<mixed>  $data
+     * @param array<mixed>|string $with
+     *
      * @return mixed
      */
     public function findWithBy(array $data, $with): mixed;
