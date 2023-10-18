@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * @property int $id
  * @property string $log_uuid
  * @property ?string $model_name
  * @property ?int $model_path
@@ -29,6 +30,7 @@ class AuditLogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             'log_uuid' => $this->log_uuid,
             'model_name' => $this->model_name,
             'model_path' => $this->model_path,

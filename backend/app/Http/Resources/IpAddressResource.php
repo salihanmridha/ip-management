@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * @property int $id
  * @property string $ip_address
  * @property string $comment
  * @property int $user_id
@@ -23,6 +24,7 @@ class IpAddressResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             'ip_address' => $this->ip_address,
             'comment' => $this->comment,
             'user_id' => $this->user_id,
