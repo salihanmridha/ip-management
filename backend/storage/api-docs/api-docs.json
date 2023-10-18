@@ -23,6 +23,36 @@
         }
     ],
     "paths": {
+        "/audit-log": {
+            "get": {
+                "tags": [
+                    "AuditLog"
+                ],
+                "summary": "Get list of audit logs",
+                "description": "Returns list of audit logs",
+                "operationId": "getAuditLogList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuditLogResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -162,7 +192,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "error": {
+                                        "message": {
                                             "type": "string",
                                             "example": "Unauthenticated"
                                         }
@@ -226,7 +256,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "error": {
+                                        "message": {
                                             "type": "string",
                                             "example": "Unauthenticated"
                                         }
@@ -316,6 +346,90 @@
     },
     "components": {
         "schemas": {
+            "AuditLogResponseDTO": {
+                "title": "Audit Log Response DTO",
+                "description": "Audit log response DTO",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "success": {
+                        "title": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "title": "message",
+                        "type": "string",
+                        "example": "Data successfully retrieve"
+                    },
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "log_uuid": {
+                                    "type": "string",
+                                    "example": "28baea4c-7c14-42a2-a752-2278fb90c5ed"
+                                },
+                                "model_name": {
+                                    "type": "string|null",
+                                    "example": "IpAddress"
+                                },
+                                "model_path": {
+                                    "type": "string|null",
+                                    "example": "App\\Models\\User"
+                                },
+                                "event": {
+                                    "type": "string",
+                                    "example": "LOGIN"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "example": "SUCCESS"
+                                },
+                                "log_description": {
+                                    "type": "string|null",
+                                    "example": "salihanmridha@gmail.com login successfully."
+                                },
+                                "log_creator": {
+                                    "type": "int|null",
+                                    "example": 1
+                                },
+                                "properties": {
+                                    "type": "string|null",
+                                    "example": "{old: {data}, attribute: {data}}"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "example": "2023-10-14T03:57:39.000000Z"
+                                },
+                                "user": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Salihan Mridha"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "salihanmridha@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "HttpForbiddenResponseDTO": {
                 "title": "Http forbidden Response DTO",
                 "description": "Http forbidden (403 code) Response DTO",

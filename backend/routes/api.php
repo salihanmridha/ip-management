@@ -31,4 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
         "destroy"
     ]);
 
+    Route::apiResource('audit-log', \App\Http\Controllers\API\AuditLogController::class)->only([
+        "index"
+    ]);
+
 });
