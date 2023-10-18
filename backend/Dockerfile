@@ -7,3 +7,15 @@ RUN set -ex \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /var/www/html
+
+# Copy .env.example to .env
+RUN cp .env.example .env
+
+# Install PHP dependencies
+RUN composer install
+
+# Generate application key
+RUN php artisan key:generate
+
+# Run database migrations and seed data
+RUN php artisan migrate --seed
