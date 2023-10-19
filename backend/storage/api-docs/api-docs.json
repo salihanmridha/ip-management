@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost/api/",
+            "url": "http://localhost:8017/api/",
             "description": "IP Management Server For Common"
         },
         {

@@ -300,7 +300,7 @@ return [
          * Constants which can be used in annotations
          */
         'constants' => [
-            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://localhost/api/'),
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://localhost:8017/api/'),
             'L5_SWAGGER_CONST_HOST_COMMON_IP' => env('L5_SWAGGER_CONST_HOST_COMMON_IP', 'http://127.0.0.1/api/'),
             'L5_SWAGGER_CONST_HOST_COMMON' => env('L5_SWAGGER_CONST_HOST_COMMON', 'http://localhost:8000/api/'),
         ],
