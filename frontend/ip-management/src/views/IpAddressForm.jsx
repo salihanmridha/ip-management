@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
@@ -35,8 +35,8 @@ export default function IpAddressForm() {
     if (ipAddress.id) {
       axiosClient
           .put(`/ip-address/${ipAddress.id}`, ipAddress)
-          .then(() => {
-            setNotification("Ip address was successfully updated");
+          .then((response) => {
+            setNotification(response.data.message);
             navigate("/ip-address");
           })
           .catch((err) => {
@@ -48,8 +48,9 @@ export default function IpAddressForm() {
     } else {
       axiosClient
           .post("/ip-address", ipAddress)
-          .then(() => {
-            setNotification("Ip address was successfully created");
+          .then((response) => {
+              console.log(response)
+            setNotification(response.data.message);
             navigate("/ip-address");
           })
           .catch((err) => {
@@ -62,7 +63,7 @@ export default function IpAddressForm() {
   };
 
   const isUpdate = () => {
-      return ipAddress && ipAddress.ip_address ? true : false;
+      return ipAddress && ipAddress.id ? true : false;
   }
 
   return (

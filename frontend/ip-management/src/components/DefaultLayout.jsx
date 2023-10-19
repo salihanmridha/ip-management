@@ -14,7 +14,6 @@ export default function DefaultLayout() {
   }, [token, setUser]);
 
   if (!token) {
-    console.log(token)
     // If there's no token, navigate to the "/login" route
     return <Navigate to="/login" />;
   }
@@ -36,7 +35,7 @@ export default function DefaultLayout() {
         </aside>
         <div className="content">
           <header>
-            <div>Header</div>
+            <h1>IP MANAGEMENT SYSTEM</h1>
 
             <div>
               {user.name} &nbsp; &nbsp;

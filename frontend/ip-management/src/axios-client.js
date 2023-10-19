@@ -2,7 +2,7 @@ import axios from "axios";
 import {useStateContext} from "./context/ContextProvider";
 
 const axiosClient = axios.create({
-  baseURL: `http://localhost/api/`
+  baseURL: process.env.REACT_APP_API_BASE_URL
 })
 
 axiosClient.interceptors.request.use((config) => {
@@ -10,7 +10,7 @@ axiosClient.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${token}`
   return config;
 })
-
+console.log("hi",process.env)
 axiosClient.interceptors.response.use((response) => {
   return response
 }, (error) => {

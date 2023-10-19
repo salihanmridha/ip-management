@@ -4,20 +4,20 @@ import {Link} from "react-router-dom";
 import {useStateContext} from "../context/ContextProvider.jsx";
 
 export default function IpAddresses() {
-  const [ipAddresses, setipAddresses] = useState([]);
+  const [ipAddresses, setIpAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
   const {setNotification} = useStateContext()
 
   useEffect(() => {
-    getIps();
+    getIpAddresses();
   }, [])
 
-  const getIps = () => {
+  const getIpAddresses = () => {
     setLoading(true)
     axiosClient.get('/ip-address')
       .then(({ data }) => {
         setLoading(false)
-        setipAddresses(data.data.ip_addresses)
+        setIpAddresses(data.data.ip_addresses)
       })
       .catch(() => {
         setLoading(false)
