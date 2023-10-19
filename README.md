@@ -21,7 +21,8 @@ The objective is to build a simple web application to provide this functionality
 ### Prerequisite
 - Docker Desktop and Docker compose. Install guide: [Docker Desktop](https://docs.docker.com/desktop/)
 - In your host file it might required to add localhost with 127.0.0.1 ip `(127.0.0.1       localhost)`
-- The backend application will run in 80 port and the frontend will run in 3000 port and database will run in 3306 port. So please make sure these ports are not busy with other application in your local machine.
+- The backend application will run in 8017 port and the frontend will run in 3017 port and database will run in 3317 port and php will run in 9017 port. So please make sure these ports are not busy with other application in your local machine.
+- It may need to **personal access** token during composer install.
 
 ### Installation
 - Clone the repository (`https://github.com/salihanmridha/ip-management.git`) in your project directory.
@@ -31,16 +32,19 @@ The objective is to build a simple web application to provide this functionality
 #### Backend Installation
 - RUN `docker-compose exec backend cp .env.example .env` OR `docker exec ip-management-backend cp .env.example .env`
 - RUN `docker-compose exec backend composer install` OR `docker exec ip-management-backend composer install`
+- - Due to swagger api documentation package it may ask for your personal access token. If asking you need to provide your [github personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+- RUN `docker-compose exec backend chmod -R 777 /var/www/html/bootstrap`
+- RUN `docker-compose exec backend chmod -R 777 /var/www/html/storage`
 - RUN `docker-compose exec backend php artisan key:generate` OR `docker exec ip-management-backend php artisan key:generate`
 - RUN `docker-compose exec backend php artisan migrate --seed` OR `docker exec ip-management-backend php artisan migrate --seed`
 - These commands will create the containers and install the project and run all necessary commands like: composer install, migration, seeder etc.
-- If you want to run the applications in different port then please update docker-compose.yml, backend/Dockerfile, nginx/default.conf files accordingly. And you might also need to update .env file, if your application not  running on http://localhost
-- Now Ready to go. Go to browser and run the application with http://localhost/api/documentation. This will take youl to api documentation.
+- If you want to run the applications in different port then please update docker-compose.yml, backend/Dockerfile, nginx/default.conf files accordingly. And you might also need to update .env file, if your application not  running on http://localhost:8017
+- Now Ready to go. Go to browser and run the application with http://localhost:8017/api/documentation. This will take youl to api documentation.
 
 #### Frontend Installation
 - RUN `docker-compose exec frontend sh -c "cd /app/ip-management && npm install"`
 - RUN `docker-compose exec frontend sh -c "cd /app/ip-management && npm start"`
-- These commands will install necessary dependency of react application and will start the application which you can visit with http://localhost:3000 domain.
+- These commands will install necessary dependency of React application and will start the application which you can visit with http://localhost:3017 domain.
 - If you want to run the applications in different port then please update docker-compose.yml (frontend environment varriable), frontend/Dockerfile, files accordingly.
 
 ## How to use the application
@@ -48,14 +52,14 @@ The objective is to build a simple web application to provide this functionality
 The application has 2 part. Backend API with Laravel and Frontend with React JS. For backend api I've created swagger api documentation which will help you to understand backend api part more easily. For each endpoint you will get the information what request you need to send and what response you will get.
 
 ### Swagger API documentation
-You will find swagger API documentation on YOUR_URL/api/documentation. For me it is: http://localhost/api/documentation. 
+You will find swagger API documentation on YOUR_URL/api/documentation. For me it is: http://localhost:8017/api/documentation. 
 
 Your might be:
 `http://localhost:8000/api/documentation` or `http://127.0.0.1:8000/api/documentation`
 
 If you want to change server url of swagger then please go to `.env` file and change the value of these variables:
 
-`L5_SWAGGER_CONST_HOST=http://localhost/api/`
+`L5_SWAGGER_CONST_HOST=http://localhost:8017/api/`
 
 `L5_SWAGGER_CONST_HOST_COMMON=http://localhost:8000/api/`
 
@@ -65,7 +69,7 @@ If you want to change server url of swagger then please go to `.env` file and ch
 
 #### Authentication
 - For authentication token I've used sanctum.
-- You'll find details documentation and how to use the authentication [here](http://localhost/api/documentation#/Authentication/loginUser) or YOUR_URL/api/documentation#/Authentication/loginUser.
+- You'll find details documentation and how to use the authentication [here](http://localhost:8017/api/documentation#/Authentication/loginUser) or YOUR_URL/api/documentation#/Authentication/loginUser.
 
 ###### Default User
 user email: salihanmridha@gmail.com
@@ -74,10 +78,10 @@ password: 12345678
 
 #### IP Address CRU Feature
 - All ip address CRU routes are protected with auth:sanctum middleware, so you required to authenticate first, before you do any operation.
-- You'll find details documentation and how to use the Ip address CRU feature [here](http://localhost/api/documentation#/IpAddress)
+- You'll find details documentation and how to use the Ip address CRU feature [here](http://localhost:8017/api/documentation#/IpAddress)
 
 #### Audit Log
-- You'll find details documentation and how to use the Audit log feature [here](http://localhost/api/documentation#/AuditLog)
+- You'll find details documentation and how to use the Audit log feature [here](http://localhost:8017/api/documentation#/AuditLog)
 
 ### Exception handling
 For handling any exception, I've used `Handler.php` file. There I added most common scenarios to handle exception. All the exception will return a standard json format data with error messages.
