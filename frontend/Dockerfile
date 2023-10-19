@@ -6,3 +6,7 @@ WORKDIR /app
 
 # Expose the port on which your React app will run
 EXPOSE 3000
+
+# Copy the entire application source code to the container
+COPY ./ip-management/ /app/ip-management/
+

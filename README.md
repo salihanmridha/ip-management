@@ -27,14 +27,21 @@ The objective is to build a simple web application to provide this functionality
 - Clone the repository (`https://github.com/salihanmridha/ip-management.git`) in your project directory.
 - Navigate by your command prompt to the project directory where docker-compose.yml file exist.
 - RUN `docker-compose build && docker-compose up -d` command.
+
+#### Backend Installation
 - RUN `docker-compose exec backend cp .env.example .env` OR `docker exec ip-management-backend cp .env.example .env`
 - RUN `docker-compose exec backend composer install` OR `docker exec ip-management-backend composer install`
 - RUN `docker-compose exec backend php artisan key:generate` OR `docker exec ip-management-backend php artisan key:generate`
 - RUN `docker-compose exec backend php artisan migrate --seed` OR `docker exec ip-management-backend php artisan migrate --seed`
-- These commands will create the containers and install the project and run all necessary commands like: composer install, migration, seeder, npm install, npm start etc.
-- If you want to run the applications in different port then please update docker-compose.yml, backend/Dockerfile, frontend/Dockerfile, nginx/default.conf files accordingly. And you might also needed to update .env file if your application running domain is not http://localhost
-- Now Ready to go. Go to browser and run the application with http://localhost:3000
-- And if you want to run the api, you should go with http://localhost/api
+- These commands will create the containers and install the project and run all necessary commands like: composer install, migration, seeder etc.
+- If you want to run the applications in different port then please update docker-compose.yml, backend/Dockerfile, nginx/default.conf files accordingly. And you might also need to update .env file, if your application not  running on http://localhost
+- Now Ready to go. Go to browser and run the application with http://localhost/api/documentation. This will take youl to api documentation.
+
+#### Frontend Installation
+- RUN `docker-compose exec frontend sh -c "cd /app/ip-management && npm install"`
+- RUN `docker-compose exec frontend sh -c "cd /app/ip-management && npm start"`
+- These commands will install necessary dependency of react application and will start the application which you can visit with http://localhost:3000 domain.
+- If you want to run the applications in different port then please update docker-compose.yml (frontend environment varriable), frontend/Dockerfile, files accordingly.
 
 ## How to use the application
 
