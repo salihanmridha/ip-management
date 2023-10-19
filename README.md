@@ -113,6 +113,7 @@ I have written total 16 test cases to ensure the api functionality is working co
 
 To run test cases, you need to run get access in docker php container.
 
+- RUN `docker-compose exec backend php artisan test` this will return all test cases result in your cli. Or you can follow below instructions also.
 - RUN `docker-compose exec -it backend /bin/sh` or `docker exec -it ip-management-backend /bin/sh`
 - Now you should have access to the backend container instance and you'll be in /var/www/html directory.
 - RUN `php artisan test`
